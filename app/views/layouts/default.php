@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>DietCake <?php eh($thread->title) ?></title>
+    <title>DietCake Board</title>
 
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <style>
