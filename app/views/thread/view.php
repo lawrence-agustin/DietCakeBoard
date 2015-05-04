@@ -24,9 +24,9 @@
 	<hr>
                     
 	<form class="well" method="post" action="<?php eh(url('thread/write'))?>">
-	  <label>Your name</label>
+	  <label>Your name:</label>
 	  <input type="text" class="span2" name="username" value="<?php eh(Param::get('username')) ?>">
-	  <label>Comment</label>
+	  <label>Comment:</label>
 	  <textarea name="body"><?php eh(Param::get('body')) ?></textarea>
 	  <br />
 	  <input type="hidden" name="thread_id" value="<?php eh($thread->id) ?>">
@@ -34,6 +34,7 @@
 	  <button type="submit" class="btn btn-primary">Submit</button>
 	                    
 	</form> 
+
  </body>
 
 

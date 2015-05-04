@@ -1,11 +1,8 @@
-<h2><?php eh($thread->title) ?></h2>
 
-
-                
-<?php if ($comment->hasError()): ?>
+<?php 
+if ($comment->hasError()): ?>
 <div class="alert alert-block">
-                    
- <h4 class="alert-heading">Validation error!</h4>
+<h4 class="alert-heading">Validation error!</h4>
  
  <?php if (!empty($comment->validation_errors['username']['length'])): ?>            
    <div><em>Your name</em> must be
@@ -22,7 +19,6 @@
     <?php eh($comment->validation['body']['length'][2]) ?> characters in length.
     </div>            
  <?php endif ?>
-
 
 </div>                    
 <?php endif ?>
@@ -41,3 +37,4 @@
 
                     
 </form> 
+

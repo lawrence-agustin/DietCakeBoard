@@ -22,11 +22,10 @@ class ThreadController extends AppController
         $comment = new Comment;
         $page = Param::get('page_next', 'write');
 
-
                         
        switch ($page) {
 
-        case 'write':                    
+       case 'write':                    
            break;
  
        case 'write_end':                
@@ -43,9 +42,16 @@ class ThreadController extends AppController
            throw new NotFoundException("{$page} is not found");        
            break;
        }
+
+         $this->set(get_defined_vars());
+         $this->render($page);
       }
+
+
+
          
-      public function create(){
+      public function create()
+      {
           $thread = new Thread;
           $comment = new Comment;
           $page = Param::get('page_next','create');
@@ -68,8 +74,8 @@ class ThreadController extends AppController
               throw new NotFoundException("{$page} not found");
               break;
           }   
-      $this->set(get_defined_vars());                    
-      $this->render($page);     
+          $this->set(get_defined_vars());                    
+          $this->render($page);     
       }
 
      
