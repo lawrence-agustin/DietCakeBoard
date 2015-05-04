@@ -71,7 +71,7 @@ class Thread extends AppModel
         $db = DB::conn();
         
         if(!$comment->validate()){
-            echo "invalid input";
+            throw new ValidationException('Invalid Comment');
         }
         else{
           $db->query(                

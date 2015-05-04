@@ -18,9 +18,9 @@ class ThreadController extends AppController
 
     public function write()                        
     {
-        $thread = Thread::get(Param::get('thread_id'));
-        $comment = new Comment;
-        $page = Param::get('page_next', 'write');
+       $thread = Thread::get(Param::get('thread_id'));
+       $comment = new Comment;
+       $page = Param::get('page_next', 'write');
 
                         
        switch ($page) {
