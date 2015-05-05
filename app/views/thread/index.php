@@ -1,15 +1,33 @@
 <html>
-<body>
-<h1>All threads</h1>
+    <body>
+        <h1>All threads</h1>
+        <ul>
+            <?php foreach ($threads as $v): ?>
+            <li><a href="<?php eh(url('thread/view', array('thread_id' => $v->id))) ?>"><?php eh($v->title) ?></a></li> 
+            <?php endforeach ?>
+        
+        <a class="btn btn-large btn-primary" href="<?php eh(url('thread/create')) ?>">Create Thread</a>
+        </ul>
 
-<ul>
-<?php foreach ($threads as $v): ?>
-<li><a href="<?php eh(url('thread/view', array('thread_id' => $v->id))) ?>"><?php eh($v->title) ?></a></li> 
+        <?php if($pagination->current > 1): ?>
+          <a href='?page=<?php echo $pagination->prev ?>'>Previous</a>
+        <?php else: ?>
+          Previous
+        <?php endif ?>
 
-<?php endforeach ?>
-<a class="btn btn-large btn-primary" href="<?php eh(url('thread/create')) ?>">Create Thread</a>
+        <?php for($i = 1; $i <= $pages; $i++): ?>
+          <?php if($i == $page): ?>
+            <?php echo $i ?>
+          <?php else: ?>
+           <a href='?page=<?php echo $i ?>'><?php echo $i ?></a>
+          <?php endif; ?>
+        <?php endfor; ?>
 
-</ul>
+        <?php if(!$pagination->is_last_page): ?>
+          <a href='?page=<?php echo $pagination->next ?>'>Next</a>
+        <?php else: ?>
+          Next
+        <?php endif ?>
 
-</body>
-</html>
+    </body>
+</html>             

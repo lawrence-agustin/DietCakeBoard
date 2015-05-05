@@ -19,7 +19,7 @@ require_once CONFIG_DIR.'database.php';
 
 // libraries
 require_once LIB_DIR.'SimplePagination/SimplePagination.php';
-
+require_once LIB_DIR.'ErrorHandler.php';
 
 // vendor
 require_once VENDOR_DIR.'SimpleDBI/SimpleDBI.php';

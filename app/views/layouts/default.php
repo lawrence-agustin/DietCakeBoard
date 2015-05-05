@@ -17,7 +17,7 @@
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="#">DietCake Hello</a>
+          <a class="brand" href="index#">DietCake Hello</a>
         </div>
       </div>
     </div>
@@ -31,6 +31,7 @@
     <script>
     console.log(<?php eh(round(microtime(true) - TIME_START, 3)) ?> + 'sec');
     </script>
+
 
   </body>
 </html>

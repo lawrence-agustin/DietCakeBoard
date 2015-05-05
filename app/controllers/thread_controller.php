@@ -3,9 +3,18 @@ class ThreadController extends AppController
 {
     public function index()                        
    {
-        $threads = Thread::getAll();
-                        
-       $this->set(get_defined_vars());
+      //1 is the default if "page" is not specified in the URL
+      $page = Param::get('page',1);
+      $threads_per_page = 15;
+      $pagination = new SimplePagination($page, $threads_per_page);
+      //$threads = Thread::getAll();
+      $threads = Thread::getAll($pagination->start_index - 1, $pagination->count + 1);
+      $pagination->checkLastPage($threads);
+      $total = Thread::countAll();
+      $pages = ceil($total / $threads_per_page);
+
+      $this->set(get_defined_vars());
+
     }  
 
     public function view()                
@@ -30,7 +39,7 @@ class ThreadController extends AppController
  
        case 'write_end':                
            $comment->username = Param::get('username');
-            $comment->body = Param::get('body');
+           $comment->body = Param::get('body');
             try {            
                $thread->write($comment);
             } catch (ValidationException $e) {                    

@@ -1,22 +1,20 @@
 <?php
-require_once '/var/www/board_exercise/ErrorHandlers.php';
 
 class Thread extends AppModel                    
 {
    public $validation = array('title'=>array('length'=>array('validate_between',1,30),),); 
 
-   public static function getAll()                
+   public static function getAll($offset, $limit)                
    {
         $threads = array();
-                    
         $db = DB::conn();
-   $rows = $db->rows('SELECT * FROM thread');
+        $rows = $db->rows("SELECT * FROM thread LIMIT {$offset}, {$limit}");
         
         foreach ($rows as $row) {                    
            $threads[] = new Thread($row);
         }
                     
-       return $threads;
+        return $threads;
     }   
 
     public function create(Comment $comment)
@@ -38,7 +36,7 @@ class Thread extends AppModel
 
     }
 
-    public static function get($id)            
+   public static function get($id)            
    {
         $db = DB::conn();
  
@@ -80,5 +78,11 @@ class Thread extends AppModel
         );       
         }
                      
+   }
+
+   public static function countAll()
+   {
+        $db = DB::conn();
+        return (int) $db->value("SELECT COUNT(*) FROM thread");
    }                          
 }
