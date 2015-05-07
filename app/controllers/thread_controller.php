@@ -7,7 +7,6 @@ class ThreadController extends AppController
       $page = Param::get('page',1);
       $threads_per_page = 15;
       $pagination = new SimplePagination($page, $threads_per_page);
-      //$threads = Thread::getAll();
       $threads = Thread::getAll($pagination->start_index - 1, $pagination->count + 1);
       $pagination->checkLastPage($threads);
       $total = Thread::countAll();

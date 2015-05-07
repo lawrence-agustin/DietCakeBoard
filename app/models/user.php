@@ -1,6 +1,41 @@
 <?php
 	class User extends AppModel
 	{
+
+			public $validation = array(
+	                    
+		        'username' => array(
+		               'length' => array(                        
+		                     'validate_between', 8, 20,
+		                ),        
+		          ),
+
+		         'password' => array(                    
+		               'length' => array(                
+		                      'validate_between', 8, 200,
+		                ),
+		          ),
+
+		         'lastname' => array(                    
+		               'length' => array(                
+		                      'validate_between', 8, 200,
+		                ),
+		          ),
+		         'firstname' => array(                    
+		               'length' => array(                
+		                      'validate_between', 8, 200,
+		                ),
+		          ),
+		         'middlename' => array(                    
+		               'length' => array(                
+		                      'validate_between', 8, 200,
+		                ),
+		          ),
+
+
+
+		     );
+			
 		private $userName;
 		private $password;
 		private $lastName;
@@ -18,6 +53,7 @@
 			$this->middleName = '';
 			$this->userInfo = array();
 		}
+
 		public function setUserInfo($userInfo)
 		{
 			$this->userName = $userInfo['username'];
@@ -37,10 +73,25 @@
 						array($this->userName, $this->password, $this->lastName, $this->firstName, $this->middleName));
 			$this->id = $db->lastInsertId();
 			$db->commit();
+		
+		}
+
+		public function authenticateUser($username,$password)
+		{
+			$db = DB::conn();
+			$db->begin();
+			$user = $db->query('SELECT * FROM user WHERE username = ? AND password = ?', $username, $password);
+			
+
+			if(!$user){
+				throw new RecordNotFoundException('Incorrect username')
+			}
 
 		}
 
 
+
+	
 
 	}
 	
