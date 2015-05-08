@@ -11,8 +11,8 @@
 
             <?php if(!empty($user->validation_errors['username']['length'])): ?>
                 <div><em>Username</em> must be between
-                    <?php eh($thread->validation['username']['length'][1]) ?> and
-                    <?php eh($thread->validation['username']['length'][2]) ?> characters in length.
+                    <?php eh($user->validation['username']['length'][1]) ?> and
+                    <?php eh($user->validation['username']['length'][2]) ?> characters in length.
                 </div>
             <?php endif ?>
             

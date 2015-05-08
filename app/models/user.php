@@ -10,12 +10,6 @@ class User extends AppModel
         'middlename' => array('length' => array('validate_between', 3, 20))
         );
 
-    private $username;
-    private $password;
-    private $lastname;
-    private $firstname;
-    private $middlename;
-    private $userInfo;
 
     public function __construct()
     {
