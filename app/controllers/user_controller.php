@@ -1,10 +1,6 @@
 <?php
 class UserController extends AppController
 {
-    public function login()
-    {
-
-    }
 
     public function registration()
     {
@@ -41,7 +37,7 @@ class UserController extends AppController
         $this->render($page);
     }
 
-    
-    
+
+
 }
 ?>
