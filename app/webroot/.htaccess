@@ -1,7 +1,7 @@
 RewriteEngine On
 
 # App routing
-RewriteRule ^$ login.php?dc_action=user/login [QSA,L]
+RewriteRule ^$ login.php?dc_action=login/login [QSA,L]
 
 
 # DietCake routing

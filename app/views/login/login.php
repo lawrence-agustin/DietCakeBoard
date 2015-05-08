@@ -12,7 +12,7 @@
 
 <?php $title='User Log In';?>
 
-<form class="form-horizontal" action="<?php  eh(url('thread/index')); ?>" method="POST">
+<form class="form-horizontal" method="POST">
     <div class="control-group">
         <label class="control-label">Username: </label>
         <div class="controls">

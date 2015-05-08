@@ -5,6 +5,7 @@ class LoginController extends AppController
     {
         $check = Param::get('call', false);
         $error = false;
+        $url = '';
         if($check){
             $params = array(
                 'username' => Param::get('username', ''),
@@ -21,14 +22,20 @@ class LoginController extends AppController
                 $login->error = true;
             }
 
+            // var_dump($login->hasError());  var_dump($error);
 
             if (!$login->hasError() && !($error)) { 
                 $_POST['username'] = $login->username;
- 
+                eh(url('thread/index'));
             }
         }
 
+
+        // if (isset($_SESSION['username'])) {
+        //     eh(url('thread/index'));            
+        // }
         $this->set(get_defined_vars());
+
     }
 }
 ?>
