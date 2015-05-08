@@ -10,35 +10,35 @@
             <h4 class="alert-heading">Validation Error</h4>
 
             <?php if(!empty($user->validation_errors['username']['length'])): ?>
-                <div><em>Username</em> must between
+                <div><em>Username</em> must be between
                     <?php eh($thread->validation['username']['length'][1]) ?> and
                     <?php eh($thread->validation['username']['length'][2]) ?> characters in length.
                 </div>
             <?php endif ?>
             
             <?php if(!empty($user->validation_errors['password']['length'])): ?>
-                <div><em>Password</em> must between
+                <div><em>Password</em> must be between
                     <?php eh($user->validation['password']['length'][1]) ?> and
                     <?php eh($user->validation['password']['length'][2]) ?> characters in length.
                 </div>
             <?php endif ?>
             
             <?php if(!empty($user->validation_errors['lastname']['length'])): ?>
-                <div><em>Last name</em> must between
+                <div><em>Last name</em> must be between
                     <?php eh($user->validation['lastname']['length'][1]) ?> and
                     <?php eh($user->validation['lastname']['length'][2]) ?> characters in length.
                 </div>
             <?php endif ?>
 
             <?php if(!empty($user->validation_errors['firstname']['length'])): ?>
-                <div><em>First name</em> must between
+                <div><em>First name</em> must be between
                     <?php eh($user->validation['firstname']['length'][1]) ?> and
                     <?php eh($user->validation['firstname']['length'][2]) ?> characters in length.
                 </div>
             <?php endif ?>
             
             <?php if(!empty($user->validation_errors['middlename']['length'])): ?>
-                <div><em>Middlename</em> must between
+                <div><em>Middlename</em> must be between
                     <?php eh($user->validation['middlename']['length'][1]) ?> and
                     <?php eh($user->validation['middlename']['length'][2]) ?> characters in length.
                 </div>

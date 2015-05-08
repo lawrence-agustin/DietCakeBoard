@@ -20,4 +20,4 @@
         </div>
     </div>
 </form>
-<p>Not yet a member? <a href="/register/index">Sign up</a> now!</p>
+<p>Not yet a member? <a href="/user/registration">Sign up</a> now!</p>

@@ -32,7 +32,7 @@ class Login extends AppModel
         $db = DB::conn();
         $params = array(
             $this->username,
-            md5($this->password)
+            $this->password
             );
         $row = $db->row('SELECT * FROM user WHERE username = ? AND password = ?', $params);
         if (!$row) {

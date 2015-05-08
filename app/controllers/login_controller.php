@@ -23,9 +23,8 @@ class LoginController extends AppController
             $_POST['username'] = $login->username;
         }
 
-
-        if (isset($_POST['username'])) {
-            eh(url('user/profile'));
+        if (isset($_SESSION['username'])) {
+            eh(url('thread/index'));
         }
         $this->set(get_defined_vars());
     }
