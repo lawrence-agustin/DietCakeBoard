@@ -3,10 +3,10 @@ class LoginController extends AppController
 {
     public function login()
     {
-        $check = Param::get('call', false);
+        $isLoggedIn = false;
         $error = false;
         $url = '';
-        if($check){
+        if($isLoggedIn){
             $params = array(
                 'username' => Param::get('username', ''),
                 'password' => Param::get('password', '')
@@ -26,10 +26,9 @@ class LoginController extends AppController
             }
         }
 
-
-        // if (isset($_SESSION['username'])) {
-        //     eh(url('thread/index'));            
-        // }
+        if (isset($_SESSION['username'])) {
+            eh(url('thread/index'));            
+        }
         $this->set(get_defined_vars());
 
     }
