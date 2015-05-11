@@ -37,6 +37,47 @@ class UserController extends AppController
         $this->render($page);
     }
 
+    public function login()
+    {
+
+        $error = false;
+        $url = '';
+        $isLoggedIn = false;
+
+        // if($isLoggedIn){
+            $params = array(
+                'username' => Param::get('username', ''),
+                'password' => Param::get('password', '')
+            );
+            $login = new Login($params);
+            try {
+                $login->checkInput();
+                $login->accept();
+            } catch (ValidationException $e) {
+                $error = true;
+            } catch (RecordNotFoundException $e) {
+                $login->error = true;
+            }
+            if (!$login->hasError() && !($error)) { 
+                $_POST['username'] = $login->username;
+                redirect('login_end');     
+             }
+        //}
+
+        if (isset($_SESSION['username'])) {
+            eh(url('thread/index'));            
+        }
+        $this->set(get_defined_vars());
+
+    }
+
+    public function login_end()
+    {
+
+    }
+
+
+
 
 
 }

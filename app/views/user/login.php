@@ -1,5 +1,6 @@
-<?php if (isset($login)): ?>
 
+<?php if (isset($login)): ?>
+    
 <?php if($login->hasError() || $error): ?>
 <div class="alert alert-block">
     <h4 class="alert-heading">Error!</h4>
@@ -8,6 +9,7 @@
     <?php endif;  ?> 
 <?php endif; ?>
 </div>
+
 <?php endif; ?>
 
 <?php $title='User Log In';?>
@@ -27,8 +29,9 @@
     </div>
     <div class="control-group">
         <div class="controls">
-            <input type="hidden" name='call' value='true'>
+            <input type="hidden" name='login' value='true'>
             <input type="submit" value='Login' class='btn btn-primary'>
+
         </div>
     </div>
 </form>

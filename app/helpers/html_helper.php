@@ -12,3 +12,9 @@ function readable_text($s)
     return $s;
 }
 
+function redirect($url)
+{
+	header("Location: " . $url);
+	exit();
+}
+
