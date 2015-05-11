@@ -3,8 +3,10 @@ class ThreadController extends AppController
 {
     public function index()                        
     {
-        $page = Param::get('page',1);
-        $threads_per_page = 15;
+
+        $threads_per_page = 15; 
+        $pageOne = 1;
+        $page = Param::get('page',$pageOne);
         $pagination = new SimplePagination($page, $threads_per_page);
         $threads = Thread::getAll($pagination->start_index - 1, $pagination->count + 1);
         $pagination->checkLastPage($threads);
