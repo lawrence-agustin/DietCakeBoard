@@ -77,10 +77,12 @@ class Thread extends AppModel
             throw new ValidationException('Invalid Comment');
         }
         else{
-            $db->query(                
-                'INSERT INTO comment SET thread_id = ?, username = ?, body = ?, created = NOW()',        
-                array($this->id, $comment->username, $comment->body)
-                );       
+            $params = array(
+                'thread_id' => $this->id,
+                'username' => $comment->username,
+                'body' => $comment->body
+            );
+            $db->insert('comment',$params);
         }
         
     }
