@@ -10,10 +10,9 @@ class LoginController extends AppController
             $params = array(
                 'username' => Param::get('username', ''),
                 'password' => Param::get('password', '')
-                );
+            );
             $login = new Login($params);
             try {
-
                 $login->checkInput();
                 $login->accept();
             } catch (ValidationException $e) {
@@ -21,9 +20,6 @@ class LoginController extends AppController
             } catch (RecordNotFoundException $e) {
                 $login->error = true;
             }
-
-            // var_dump($login->hasError());  var_dump($error);
-
             if (!$login->hasError() && !($error)) { 
                 $_POST['username'] = $login->username;
                 eh(url('thread/index'));

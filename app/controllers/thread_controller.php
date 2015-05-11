@@ -3,7 +3,6 @@ class ThreadController extends AppController
 {
     public function index()                        
     {
-
         $threads_per_page = 15; 
         $pageOne = 1;
         $page = Param::get('page',$pageOne);
@@ -13,7 +12,6 @@ class ThreadController extends AppController
         $total = Thread::countAll();
         $pages = ceil($total / $threads_per_page);
         $this->set(get_defined_vars());
-
     }   
 
     public function view()                
@@ -28,7 +26,6 @@ class ThreadController extends AppController
         $thread = Thread::get(Param::get('thread_id'));
         $comment = new Comment;
         $page = Param::get('page_next', 'write');
-
         switch ($page) {
         case 'write':                    
             break;
@@ -54,7 +51,6 @@ class ThreadController extends AppController
         $thread = new Thread;
         $comment = new Comment;
         $page = Param::get('page_next','create');
-
         switch($page){
             case 'create':
                 break;
