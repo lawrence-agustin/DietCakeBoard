@@ -1,6 +1,8 @@
+<?php session_start(); ?>
 <html>
 <body> 
-    <h2>All threads</h2>
+    <h2>Hello, <?php echo ucfirst($_SESSION["username"])?></h2>
+    <h3>All threads</h3>
     <ul>
         <?php foreach ($threads as $v): ?>
             <li><a href="<?php eh(url('thread/view', array('thread_id' => $v->id))) ?>"><?php eh($v->title) ?></a></li> 

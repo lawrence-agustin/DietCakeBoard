@@ -5,6 +5,6 @@
 
 <body>
     <div class="alert-heading">Registration Successful</div>
-    <form action="<?php eh(url('login/login')) ?>"><input type="submit" value="Go Back to Login Page" ?> </form>
+    <a href="<?php eh(url('user/login')); ?>"> &larr; Go back to login page.</a>
 </body>
 </html>

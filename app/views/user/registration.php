@@ -55,6 +55,7 @@
         Middle Name: <input type="text" name="middlename" value="<?php eh(Param::get('middlename')) ?>"><br>
         <input type="hidden" name="page_next" value="registration_end"/>
         <input type="submit" value="Register" class="btn btn-primary">
+        <input type="button" value="Cancel" class="btn btn-primary" onclick="history.go(-1)">
     </form>
 
 </body>

@@ -49,7 +49,7 @@ class User extends AppModel
                 'password' => $this->password
                 );
             $db->insert('user',$params);
-            $this->created = true;          
+            //$this->created = true;          
             $this->id = $db->lastInsertId();
 
         }catch (Exception $e){

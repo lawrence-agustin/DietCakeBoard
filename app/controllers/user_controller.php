@@ -44,7 +44,7 @@ class UserController extends AppController
         $url = '';
         $isLoggedIn = false;
 
-        // if($isLoggedIn){
+        //if($isLoggedIn){
             $params = array(
                 'username' => Param::get('username', ''),
                 'password' => Param::get('password', '')
@@ -53,20 +53,25 @@ class UserController extends AppController
             try {
                 $login->checkInput();
                 $login->accept();
-            } catch (ValidationException $e) {
+            } 
+            catch (ValidationException $e) {
                 $error = true;
-            } catch (RecordNotFoundException $e) {
+            } 
+            catch (RecordNotFoundException $e) {
                 $login->error = true;
             }
+
             if (!$login->hasError() && !($error)) { 
-                $_POST['username'] = $login->username;
-                redirect('login_end');     
+                
+                $redirect_url = "thread/index";     
+                session_start();
+                $_SESSION["username"] = Param::get('username');
+                redirect("login_end");
+
              }
         //}
 
-        if (isset($_SESSION['username'])) {
-            eh(url('thread/index'));            
-        }
+
         $this->set(get_defined_vars());
 
     }
@@ -74,6 +79,12 @@ class UserController extends AppController
     public function login_end()
     {
 
+    }
+
+    public function logout()
+    {
+        session_start();
+        session_destroy();
     }
 
 

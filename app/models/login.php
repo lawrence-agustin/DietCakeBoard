@@ -23,7 +23,7 @@ class Login extends AppModel
     {
         $this->validate();
         if ($this->hasError()) {
-            throw new ValidationException('invalid Input');
+            throw new ValidationException('Invalid Input');
         }
     }
 
@@ -33,10 +33,12 @@ class Login extends AppModel
         $params = array(
             $this->username,
             $this->password
-            );
+        );
+        
         $row = $db->row('SELECT * FROM user WHERE username = ? AND password = ?', $params);
         if (!$row) {
-            throw new RecordNotFoundException('no record found');
+            throw new RecordNotFoundException('No record found');
         }
+
     }
 }
