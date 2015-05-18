@@ -6,8 +6,11 @@
  * @author Tatsuya Tsuruoka <http://github.com/ttsuruoka>
  * @link https://github.com/dietcake/dietcake-showcase
  */
+require_once VENDOR_DIR.'SimpleDBI/SimpleDBI.php';
+require_once VENDOR_DIR.'SimpleDBI/SimpleDBIStatement.php';
 
-class DB extends SimpleDBI
+
+ class DB extends SimpleDBI
 {
     public static function getConnectSettings($destination = null)
     {

@@ -6,3 +6,4 @@ class Hello extends AppModel
         return 'hello world!';
     }
 }
+?>
