@@ -44,6 +44,13 @@
                 </div>
             <?php endif ?>
             
+             <?php if(!empty($user->validation_errors['email']['length'])): ?>
+                <div><em>Email Address</em> must be between
+                    <?php eh($user->validation['email']['length'][1]) ?> and
+                    <?php eh($user->validation['email']['length'][2]) ?> characters in length.
+                </div>
+            <?php endif ?>
+
         </div>
     <?php endif ?>
 
@@ -53,6 +60,7 @@
         Last Name: <input type="text" name="lastname" value="<?php eh(Param::get('lastname')) ?>"><br>
         First Name: <input type="text" name="firstname" value="<?php eh(Param::get('firstname')) ?>"><br>
         Middle Name: <input type="text" name="middlename" value="<?php eh(Param::get('middlename')) ?>"><br>
+        Email Address: <input type="text" name="email" value="<?php eh(Param::get('email')) ?>"><br>
         <input type="hidden" name="page_next" value="registration_end"/>
         <input type="submit" value="Register" class="btn btn-primary">
         <input type="button" value="Cancel" class="btn btn-primary" onclick="history.go(-1)">

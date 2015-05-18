@@ -7,7 +7,8 @@ class User extends AppModel
         'password' => array('length' => array('validate_between', 8, 20)),
         'lastname' => array('length' => array('validate_between', 3, 20)),
         'firstname' => array('length' => array('validate_between', 3, 20)),
-        'middlename' => array('length' => array('validate_between', 3, 20))
+        'middlename' => array('length' => array('validate_between', 3, 20)),
+        'email' => array('length' => array('validate_between', 15,35)),
         );
 
 
@@ -18,6 +19,7 @@ class User extends AppModel
         $this->lastname = '';
         $this->firstname = '';
         $this->middlename = '';
+        $this->email = '';
         $this->userInfo = array();
     }
 
@@ -28,6 +30,7 @@ class User extends AppModel
         $this->lastname = $userInfo['lastname'];
         $this->firstname = $userInfo['firstname'];
         $this->middlename = $userInfo['middlename'];
+        $this->email = $userInfo['email'];
     }
 
 
@@ -46,7 +49,8 @@ class User extends AppModel
                 'firstname' => $this->firstname,
                 'lastname' => $this->lastname,
                 'middlename' => $this->middlename,
-                'password' => $this->password
+                'password' => $this->password,
+                'email' => $this->email,
                 );
             $db->insert('user',$params);
             //$this->created = true;          

@@ -9,9 +9,11 @@ class UserController extends AppController
             'firstname' => Param::get('firstname'),
             'lastname' => Param::get('lastname'),
             'password' => Param::get('password'),
-            'middlename' => Param::get('middlename')
+            'middlename' => Param::get('middlename'),
+            'email' => Param::get('email'),
             );
 
+        
         $user = new User();
 
         $user->setUserInfo($params);
