@@ -11,11 +11,12 @@
             </div>
             <div><?php echo readable_text($v->body) ?></div>
         </div>
+
     <?php endforeach ?>
     <hr>
-    <form class="well" method="post" action="<?php eh(url('thread/write'))?>">
+    <form class="well" method="post" action="<?php eh(url('comment/write'))?>">
         <label>Your name:</label>
-        <input type="text" class="span2" name="username" value="">
+        <input type="text" class="span2" name="username" value="<?php echo ucfirst($_SESSION["username"]); ?>">
         <label>Comment:</label>
         <textarea name="body"><?php eh(Param::get('body')) ?></textarea>
         <br />

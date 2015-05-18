@@ -22,7 +22,7 @@ if ($comment->hasError()): ?>
 </div>                    
 <?php endif ?>
 
-<form class="well" method="post" action="<?php eh(url('thread/write')) ?>">
+<form class="well" method="post" action="<?php eh(url('comment/write')) ?>">
   <label>Your name</label>
   <input type="text" class="span2" name="username" value="<?php echo ucfirst($_SESSION["username"]); ?>">
   <label>Comment</label>

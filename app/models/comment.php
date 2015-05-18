@@ -9,10 +9,48 @@ class Comment extends AppModel
         ),
         'body' => array(                    
             'length' => array(                
-                'validate_between', 1, 200,
+                'validate_between', 10, 200,
             ),
         ),
     );
+
+    // public function __construct()
+    // {
+    //     $this->thread_id = "";
+    //     $this->username = "";
+    //     $this->body = "";
+    // }
+
+    // public function setCommentInfo($commentInfo)
+    // {
+    //     $this->thread_id = $commentInfo['thread_id'];
+    //     $this->username = $commentInfo['username'];
+    //     $this->body = $commentInfo['body'];
+    // }
+
+    // public function create()
+    // {
+    //     if(!$this->validate()){
+    //         throw new ValidationException("Invalid Input");
+            
+    //     }
+
+    //     try
+    //     {
+    //         $db = DB::conn();
+    //         $params = array(
+    //             'thread_id' => $this->thread_id,
+    //             'username' => $this->username,
+    //             'body' => $this->body,
+    //             'created' => 'NOW',
+    //             );
+    //     }catch(Exception $e){
+    //         throw $e;
+    //     }
+
+    // }
+
+
 
     // public static function getAll($thread_id)
     // {
