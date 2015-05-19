@@ -4,7 +4,7 @@ class Comment extends AppModel
     public $validation = array(
         'username' => array(
             'length' => array(
-                'validate_between', 1, 16,
+                'validate_between', 4, 16,
             ),
         ),
         'body' => array(                    
@@ -13,6 +13,65 @@ class Comment extends AppModel
             ),
         ),
     );
+
+
+    public static function getAll($thread_id, $offset, $limit)                
+    {
+        $comments = array();
+        $db = DB::conn();
+        $rows = $db->rows("SELECT * FROM comment WHERE thread_id = ? LIMIT {$offset}, {$limit}", array($thread_id));
+        //$rows = $db->rows("SELECT * FROM comment WHERE thread_id = ? AND id = ?", array($thread_id, $comment_id));
+        foreach ($rows as $row) {                    
+            $comment[] = new Comment($row);
+        }
+        
+        return $comments;
+    }  
+
+    public function write($thread_id, $username, $body)
+    {
+
+        $this->validate();
+        if($this->hasError()){
+            throw new ValidationException("Invalid Comment");
+        }
+
+        $db = DB::conn();
+
+        $params = array(
+            'id' => $this->id,
+            'thread_id' => $thread_id,
+            'username' => $username,
+            'body' => $body
+            );
+
+        $db->insert('comment', $params);
+        $this->id = $db->lastInsertId();
+
+
+    }
+
+    // public function getComments($thread_id)
+    // {
+    //     $comments = array();
+        
+    //     $db = DB::conn();
+    //     $rows = $db->rows('SELECT * FROM comment WHERE thread_id = ? ORDER BY created ASC', array($thread_id));
+
+    //     foreach ($rows as $row) {                        
+    //         $comments[] = new Comment($row);
+    //     }
+    //     return $comments;
+    // }
+
+
+
+
+    public static function countAll($thread_id)
+    {
+        $db = DB::conn();
+        return $db->value("SELECT COUNT(*) FROM comment WHERE thread_id = ? ", array($thread_id));
+    }   
 
     // public function __construct()
     // {

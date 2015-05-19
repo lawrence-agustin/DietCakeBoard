@@ -44,6 +44,24 @@ class Thread extends AppModel
         $db->commit();
     }
 
+    public function write(Comment $comment)                    
+    {
+        $db = DB::conn();
+
+        if(!$comment->validate()){
+            throw new ValidationException('Invalid Comment');
+        }
+        else{
+            $params = array(
+                'thread_id' => $this->id,
+                'username' => $comment->username,
+                'body' => $comment->body
+            );
+            $db->insert('comment',$params);
+        }
+        
+    }
+
     public static function get($id)            
     {
         $db = DB::conn();
@@ -72,23 +90,7 @@ class Thread extends AppModel
 
     }
 
-    public function write(Comment $comment)                    
-    {
-        $db = DB::conn();
 
-        if(!$comment->validate()){
-            throw new ValidationException('Invalid Comment');
-        }
-        else{
-            $params = array(
-                'thread_id' => $this->id,
-                'username' => $comment->username,
-                'body' => $comment->body
-            );
-            $db->insert('comment',$params);
-        }
-        
-    }
 
     public static function countAll()
     {
