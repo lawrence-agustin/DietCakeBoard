@@ -17,7 +17,7 @@ class ThreadController extends AppController
 
     public function view()                
     {
-
+        
         $comments_per_page = 10;
         $pageOne = 1;
         $thread = Thread::get(Param::get('thread_id'));
@@ -33,7 +33,7 @@ class ThreadController extends AppController
         $page = Param::get("page",$pageOne); 
 
         $pagination = new SimplePagination($page, $comments_per_page);
-        // $comments = Comment::getAll($thread_id, $pagination->start_index - 1, $pagination->count + 1);
+        $comments = Comment::getAll($thread_id, $pagination->start_index - 1, $pagination->count + 1);
         $pagination->checkLastPage($comments);
         $total = Comment::countAll($thread_id);
         $pages = ceil($total / $comments_per_page);

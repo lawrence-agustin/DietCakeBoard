@@ -22,7 +22,7 @@ class Comment extends AppModel
         $rows = $db->rows("SELECT * FROM comment WHERE thread_id = ? LIMIT {$offset}, {$limit}", array($thread_id));
         //$rows = $db->rows("SELECT * FROM comment WHERE thread_id = ? AND id = ?", array($thread_id, $comment_id));
         foreach ($rows as $row) {                    
-            $comment[] = new Comment($row);
+            $comments[] = new Comment($row);
         }
         
         return $comments;
