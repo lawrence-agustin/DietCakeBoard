@@ -1,0 +1,1 @@
+<h2><?php eh($title["title"]); ?> has been successfully deleted</h2>

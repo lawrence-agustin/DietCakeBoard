@@ -60,5 +60,37 @@ class User extends AppModel
             throw $e;
         }
     }
+
+    public static function getUserId($username)
+    {
+        $db = DB::conn();
+        $row = $db->row('SELECT user_id FROM user WHERE username = ?', array($username));
+        if (!$row) {
+            throw new RecordNotFoundException("Error, record not found");
+        }
+        return $row['user_id'];
+    }
+
+    public static function getUsername($id)
+    {
+        $db = DB::conn();
+        $row = $db->row('SELECT username FROM user WHERE user_id = ?', array($id));
+        if (!$row) {
+            throw new RecordNotFoundException("Error, record not found");
+        }
+        return $row['username'];
+    }
+
+    public static function getInfoById($id)
+    {
+        try {
+            $db = DB::conn();
+            $row = $db->row('SELECT * FROM user WHERE id = ?', array($id));
+        } catch (Exception $e) {
+            throw new Exception("Error, record not found");
+        }
+          return new self($row);
+    }
+
 }
 ?>
