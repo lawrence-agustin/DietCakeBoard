@@ -1,4 +1,3 @@
-<?php session_start(); ?>
 <?php 
 if ($comment->hasError()): ?>
 <div class="alert alert-block">

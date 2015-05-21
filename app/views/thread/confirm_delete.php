@@ -1,4 +1,3 @@
-<?php session_start(); ?>
 <html>
 	<body>
 		<form class="well" method="post">

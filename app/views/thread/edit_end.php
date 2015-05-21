@@ -1,5 +1,3 @@
-<?php session_start(); ?>
-
 <p class="alert alert-success">
     You successfully edited this thread.
 </p> 

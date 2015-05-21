@@ -1,4 +1,3 @@
-<?php session_start(); ?>
 <h1>Create a thread</h1>
 
 <?php if($thread->hasError() || $comment->hasError()): ?>
@@ -19,6 +18,8 @@
         <input type="text" class="span2" name="title" value="<?php eh(Param::get('title'))?>">
         <label>Your name</label>
         <input type="text" class="span2" name="username" value="<?php echo ucfirst($_SESSION["username"]); ?>">
+
+
         <label>Body: </label>
         <textarea name="thread_body"><?php eh(Param::get('thread_body'))?> </textarea>
         <label>Comment</label>

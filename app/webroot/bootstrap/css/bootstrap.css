@@ -5772,3 +5772,8 @@ a.badge:hover {
 .affix {
   position: fixed;
 }
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}

@@ -4,12 +4,12 @@ class Comment extends AppModel
     public $validation = array(
         'username' => array(
             'length' => array(
-                'validate_between', 4, 16,
+                'validate_between', 8, 16,
             ),
         ),
         'body' => array(                    
             'length' => array(                
-                'validate_between', 10, 200,
+                'validate_between', 5, 200,
             ),
         ),
     );

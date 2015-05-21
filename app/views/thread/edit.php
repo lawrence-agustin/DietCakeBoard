@@ -1,5 +1,3 @@
-<?php session_start(); ?>
-
 <?php 
 if ($thread->hasError()): ?>
 <div class="alert alert-block">

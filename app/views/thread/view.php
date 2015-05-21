@@ -1,8 +1,8 @@
-<?php session_start(); ?>
 <html>
 
 <body> 
     <h1><?php eh($thread->title) ?></h1>
+    <h4>Category: <?php eh($thread->category);?></h4>
     
      <form class="well" method="post">
         <input type="hidden" name="threadTitle" value="<?php eh($thread->title) ?>"/>
