@@ -8,7 +8,7 @@ class Thread extends AppModel
             ),
           'body'=>array(
             'length'=>array(
-                'validate_between',15,30),
+                'validate_between',10,30),
             ),
         ); 
 
@@ -25,7 +25,12 @@ class Thread extends AppModel
         return $threads;
     }   
 
-    public function create(Comment $comment, $threadBody, $creator_id)
+    public static function getThreadsByCategory($categoryName)
+    {
+        
+    }
+
+    public function create(Comment $comment, $threadBody, $creator_id, $category)
     {
         $this->validate();
         $comment->validate();
@@ -38,9 +43,9 @@ class Thread extends AppModel
         
         $params = array(
                 'title'   => $this->title,
-                'created' => 'NOW()',
                 'body' => $threadBody,
-                'creator_id' => $creator_id
+                'creator_id' => $creator_id,
+                'category' => $category
         );
 
         $db->insert('thread',$params);
@@ -172,6 +177,14 @@ class Thread extends AppModel
             return true;
         }
         else return false;
+    }
+
+    public static function getTopFive()
+    {
+        $db = DB::conn();
+        $rows = $db->rows(
+            'SELECT thread_id, count(*) as commentCount FROM comment GROUP BY thread_id ORDER BY commentCount DESC LIMIT 5');
+        return $rows;
     }
 
                       

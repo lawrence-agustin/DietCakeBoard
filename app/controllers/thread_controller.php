@@ -113,11 +113,12 @@ class ThreadController extends AppController
             case 'create_end':
                 $thread->title = Param::get('title');
                 $threadBody = Param::get('thread_body');
+                $category = Param::get('category');
                 $creatorId = User::getUserId(Param::get('user'));
                 $comment->username = Param::get('username');
                 $comment->body = Param::get('body');
                 try{
-                    $thread->create($comment, $threadBody, $creatorId);
+                    $thread->create($comment, $threadBody, $creatorId, $category);
                 } 
                 catch(ValidationException $e){
                       $page = 'create';
@@ -154,6 +155,28 @@ class ThreadController extends AppController
         }
         $this->set(get_defined_vars());
         $this->render($page);
+    }
+
+
+    public function top_five()
+    {
+        $topFive = Thread::getTopFive();
+        $indexes = array();
+        $commentCount = array();
+
+        foreach ($topFive as $key => $v) {
+            $indexes[] = $v['thread_id'];
+            $commentCount[] = $v["commentCount"];
+        }
+
+        $titles = array();
+        foreach($indexes as $v)
+        {
+            $titles[] = Thread::getTitle($v);
+        }
+
+        $this->set(get_defined_vars());
+
     }
 
 
