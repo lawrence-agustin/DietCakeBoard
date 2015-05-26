@@ -89,9 +89,12 @@ class UserController extends AppController
 
     public function profile()
     {
-        $user_id = Param::get('user_id');
-        $user_info = User::getInfoById($user_id);
-        $this->set(get_defined_vars());
+        if(isset($_SESSION["username"])) {
+            $user_id = Param::get('user_id');
+            $user_info = User::getInfoById($user_id);
+            $this->set(get_defined_vars());
+        }
+        else redirect(url('user/login_notice'));
     }
 
 
@@ -99,6 +102,11 @@ class UserController extends AppController
     public function logout()
     {
         session_destroy();
+    }
+
+    public function login_notice()
+    {
+
     }
 
 
