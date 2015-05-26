@@ -5,13 +5,10 @@ class User extends AppModel
     public $validation = array(                        
         'username'      => array('length' => array('validate_between', 8, 20)),
         'password'      => array('length' => array('validate_between', 8, 20)),
-        'lastname'      => array('length' => array('validate_between', 3, 20)),
-        'firstname'     => array('length' => array('validate_between', 3, 20)),
-        'middlename'    => array('length' => array('validate_between', 3, 20)),
-        'email'         => array(
-            'length' => array('validate_between', 15,35),
-            'valid'  => array('validate_email')
-            ),
+        'lastname'      => array('length' => array('validate_between', 3, 20), 'valid'  => array('validate_name')),
+        'firstname'     => array('length' => array('validate_between', 3, 20), 'valid'  => array('validate_name')),
+        'middlename'    => array('length' => array('validate_between', 3, 20), 'valid'  => array('validate_name')),
+        'email'         => array('length' => array('validate_between', 15,35), 'valid'  => array('validate_email')),
     );
 
     public function __construct()

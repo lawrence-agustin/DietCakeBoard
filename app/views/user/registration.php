@@ -15,7 +15,7 @@
                     <?php eh($user->validation['username']['length'][2]) ?> characters in length.
                 </div>
             <?php endif ?>
-            
+           
             <?php if(!empty($user->validation_errors['password']['length'])): ?>
                 <div><em>Password</em> must be between
                     <?php eh($user->validation['password']['length'][1]) ?> and
@@ -30,11 +30,19 @@
                 </div>
             <?php endif ?>
 
+            <?php if(!empty($user->validation_errors['lastname']['valid'])): ?>
+                <div><em>Last Name</em> is invalid. Must contain letters only.</div>
+            <?php endif ?>
+
             <?php if(!empty($user->validation_errors['firstname']['length'])): ?>
                 <div><em>First name</em> must be between
                     <?php eh($user->validation['firstname']['length'][1]) ?> and
                     <?php eh($user->validation['firstname']['length'][2]) ?> characters in length.
                 </div>
+            <?php endif ?>
+
+            <?php if(!empty($user->validation_errors['firstname']['valid'])): ?>
+                <div><em>First Name</em> is invalid. Must contain letters only.</div>
             <?php endif ?>
             
             <?php if(!empty($user->validation_errors['middlename']['length'])): ?>
@@ -42,6 +50,10 @@
                     <?php eh($user->validation['middlename']['length'][1]) ?> and
                     <?php eh($user->validation['middlename']['length'][2]) ?> characters in length.
                 </div>
+            <?php endif ?>
+
+            <?php if(!empty($user->validation_errors['middlename']['valid'])): ?>
+                <div><em>Middle Name</em> is invalid. Must only contain letters only.</div>
             <?php endif ?>
             
              <?php if(!empty($user->validation_errors['email']['length'])): ?>
@@ -52,7 +64,7 @@
             <?php endif ?>
 
              <?php if(!empty($user->validation_errors['email']['valid'])): ?>
-                <div><em>Email address</em> is invalid</div>
+                <div><em>Email Address</em> is invalid</div>
             <?php endif ?>
 
         </div>
