@@ -21,10 +21,10 @@ if ($thread->hasError()): ?>
 <h2>Edit Thread:</h2>
    <form class="well" method="post" action="" >
         <label>Title</label>
-        <input type="text" class="span2" name="title" value="<?php echo $_POST["threadTitle"]?>">
+        <input type="text" class="span2" name="title" value="<?php eh(Param::get('title'))?>">
         <input type="hidden" name="username" value="<?php echo ucfirst($_SESSION["username"]); ?>">
         <label>Body</label>
-        <textarea name="thread_body"><?php eh(Param::get('body'))?><?php eh($_POST["threadBody"]) ?></textarea>
+        <textarea name="thread_body"><?php eh(Param::get('thread_body'))?></textarea>
         <br/>
         <input type="hidden" name="page_next" value="edit_end">
         <input type="hidden" name="user" value="<?php echo $_SESSION["username"]?>">
