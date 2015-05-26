@@ -83,7 +83,7 @@
         Email Address: <input type="text" name="email" value="<?php eh(Param::get('email')) ?>"><br>
         <input type="hidden" name="page_next" value="registration_end"/>
         <input type="submit" value="Register" class="btn btn-primary">
-        <input type="button" value="Cancel" class="btn btn-primary" onclick="history.go(-1)">
+        <input type="submit" value="Cancel" formaction="<?php eh(url('user/login'))?>" class="btn btn-primary">
     </form>
 
 </body>

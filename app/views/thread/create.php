@@ -34,12 +34,12 @@
         <label>Your name</label>
         <input type="text" class="span2" name="username" value="<?php echo ucfirst($_SESSION["username"]); ?>" readonly>
 
-         <label>Category: </label>
-         <select name="category">
-          <option value="General">General</option>
-          <option value="Technology">Technology</option>
-          <option value="Music">Music</option>
-          <option value="Arts">Arts</option>
+        <label>Category: </label>
+        <select name="category">
+            <option value="General">General</option>
+            <option value="Technology">Technology</option>
+            <option value="Music">Music</option>
+            <option value="Arts">Arts</option>
         </select> 
 
         <label>Body: </label>
@@ -50,5 +50,5 @@
         <input type="hidden" name="page_next" value="create_end">
         <input type="hidden" name="user" value="<?php echo $_SESSION["username"]?>">
         <button type="submit" class="btn btn-primary">Submit</button>
-        <input type="button" value="Cancel" class="btn btn-primary" onclick="history.go(-1)">
+        <button type="submit" value="Cancel" class="btn btn-primary" formaction="<?php eh(url('thread/index'))?>">Cancel</button>
     </form>

@@ -29,6 +29,6 @@ if ($comment->hasError()): ?>
     <input type="hidden" name="thread_id" value="<?php eh($thread->id) ?>">
     <input type="hidden" name="page_next" value="write_end">
     <button type="submit" class="btn btn-primary">Submit</button>
-    <input type="button" value="Cancel" class="btn btn-primary" onclick="history.go(-1)"> 
+    <button type="submit" formaction="<?php eh(url('thread/view', array('thread_id' => $thread->id)))?>" class="btn btn-primary">Cancel</button>
 </form> 
 

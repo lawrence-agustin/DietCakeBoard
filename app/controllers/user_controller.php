@@ -38,44 +38,47 @@ class UserController extends AppController
 
     public function login()
     {
-
-        
-        $isLoggedIn = false;
-
-        $check = Param::get('call',false);
-        $error = false;
-
-        if($check)
+        if(!isset($_SESSION["username"])) 
         {
-            $params = array(
-                'username' => Param::get('username', ''),
-                'password' => Param::get('password', '')
-            );
-            $login = new Login($params);
-            try {
-                $login->checkInput();
-                $login->accept();
-            } 
-            catch (ValidationException $e) {
-                $error = true;
-            } 
-            catch (RecordNotFoundException $e) {
-                $login->error = true;
-            }
+        
+            $isLoggedIn = false;
 
-            if (!$login->hasError() && !($error)) {       
-                $redirect_url = "thread/index";     
-                session_start();
-                $_SESSION["username"] = Param::get('username');
-                $_SESSION["user_id"] = User::getUserId($_SESSION["username"]);
-                $_SESSION["alreadyLoggedIn"] = true;
+            $check = Param::get('call',false);
+            $error = false;
+
+            if($check)
+            {
+                $params = array(
+                    'username' => Param::get('username', ''),
+                    'password' => Param::get('password', '')
+                );
+                $login = new Login($params);
+                try {
+                    $login->checkInput();
+                    $login->accept();
+                } 
+                catch (ValidationException $e) {
+                    $error = true;
+                } 
+                catch (RecordNotFoundException $e) {
+                    $login->error = true;
+                }
+
+                if (!$login->hasError() && !($error)) {       
+                    $redirect_url = "thread/index";     
+                    session_start();
+                    $_SESSION["username"] = Param::get('username');
+                    $_SESSION["user_id"] = User::getUserId($_SESSION["username"]);
+                    $_SESSION["alreadyLoggedIn"] = true;
+                    redirect("login_end");
+                }
+            }
+            if (isset($_SESSION['username'])) {
                 redirect("login_end");
             }
+            $this->set(get_defined_vars());
         }
-        if (isset($_SESSION['username'])) {
-            redirect("login_end");
-        }
-        $this->set(get_defined_vars());
+        else redirect(url('user/login_end'));
     }
 
 
