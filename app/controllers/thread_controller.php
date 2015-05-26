@@ -101,13 +101,13 @@ class ThreadController extends AppController
                 break;
             case 'create_end':
                 $thread->title = Param::get('title');
-                $threadBody = Param::get('thread_body');
+                $thread->body = Param::get('thread_body');
                 $category = Param::get('category');
                 $creatorId = User::getUserId(Param::get('user'));
                 $comment->username = Param::get('username');
                 $comment->body = Param::get('body');
                 try {
-                    $thread->create($comment, $threadBody, $creatorId, $category);
+                    $thread->create($comment, $creatorId, $category);
                 } 
                 catch(ValidationException $e) {
                       $page = 'create';

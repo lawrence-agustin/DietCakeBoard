@@ -8,6 +8,7 @@ class Thread extends AppModel
         'title'=>array(
             'length'=>array(
                 'validate_between', self::MIN_STRING_LENGTH, self::MAX_STRING_LENGTH),
+                'exists' => array('threadExists')
         ),
         'body'=>array(
             'length'=>array(
@@ -36,20 +37,18 @@ class Thread extends AppModel
 
 
 
-    public function create(Comment $comment, $threadBody, $creator_id, $category)
+    public function create(Comment $comment, $creator_id, $category)
     {
-        $this->validate();
-        $comment->validate();
-        if( $this->hasError() || $comment->hasError()){
-            throw new ValidationException('Invalid Thread or Comment');
+        if($this->validate() || $comment->validate()){
+            throw new ValidationException('Invalid Input');
         }
-
+        
         $db = DB::conn();
         $db->begin();
         
         $params = array(
                 'title'         => $this->title,
-                'body'          => $threadBody,
+                'body'          => $this->body,
                 'creator_id'    => $creator_id,
                 'category'      => $category
         );
@@ -194,6 +193,14 @@ class Thread extends AppModel
         return $rows;
     }
 
-                      
+    public function threadExists($title)
+    {
+        $db = DB::conn();
+        $row = $db->row('SELECT * FROM thread WHERE title = ? ', array($title));
+        if (!$row) {
+            return true;
+        }
+        return false;
+    }           
 }
 ?>
