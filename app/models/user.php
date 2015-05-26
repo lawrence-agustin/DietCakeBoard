@@ -8,7 +8,10 @@ class User extends AppModel
         'lastname'      => array('length' => array('validate_between', 3, 20)),
         'firstname'     => array('length' => array('validate_between', 3, 20)),
         'middlename'    => array('length' => array('validate_between', 3, 20)),
-        'email'         => array('length' => array('validate_between', 15,35)),
+        'email'         => array(
+            'length' => array('validate_between', 15,35),
+            'valid'  => array('validate_email')
+            ),
     );
 
     public function __construct()

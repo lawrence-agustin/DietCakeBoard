@@ -51,6 +51,10 @@
                 </div>
             <?php endif ?>
 
+             <?php if(!empty($user->validation_errors['email']['valid'])): ?>
+                <div><em>Email address</em> is invalid</div>
+            <?php endif ?>
+
         </div>
     <?php endif ?>
 
