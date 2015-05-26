@@ -27,9 +27,6 @@ class ThreadController extends AppController
             $total = Thread::countAll();
             $pages = ceil($total / $threads_per_page);
             $this->set(get_defined_vars());
-
-
-
         }
         else redirect(url('user/login'));
     }   

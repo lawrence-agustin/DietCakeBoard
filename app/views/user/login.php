@@ -26,7 +26,8 @@
     </div>
     <div class="control-group">
         <div class="controls">
-            <input type="hidden" name='login' value='true'>
+            <input type="hidden" name='page_next' value='login_end'>
+            <input type="hidden" name='call' value='true'>
             <input type="submit" value='Login' class='btn btn-primary'>
         </div>
     </div>

@@ -38,32 +38,52 @@ class UserController extends AppController
 
     public function login()
     {
-        $error = false;
+
+        
         $isLoggedIn = false;
 
-        $params = array(
-            'username' => Param::get('username', ''),
-            'password' => Param::get('password', '')
-        );
-        $login = new Login($params);
-        try {
-            $login->checkInput();
-            $login->accept();
-        } 
-        catch (ValidationException $e) {
-            $error = true;
-        } 
-        catch (RecordNotFoundException $e) {
-            $login->error = true;
-        }
+        $check = Param::get('call',false);
+        $error = false;
 
-        if (!$login->hasError() && !($error)) {       
-            $redirect_url = "thread/index";     
-            session_start();
-            $_SESSION["username"] = Param::get('username');
-            $_SESSION["user_id"] = User::getUserId($_SESSION["username"]);
+        if($check)
+        {
+            $params = array(
+                'username' => Param::get('username', ''),
+                'password' => Param::get('password', '')
+            );
+            $login = new Login($params);
+            try {
+                $login->checkInput();
+                $login->accept();
+            } 
+            catch (ValidationException $e) {
+                $error = true;
+            } 
+            catch (RecordNotFoundException $e) {
+                $login->error = true;
+            }
+
+            if (!$login->hasError() && !($error)) {       
+                $redirect_url = "thread/index";     
+                session_start();
+                $_SESSION["username"] = Param::get('username');
+                $_SESSION["user_id"] = User::getUserId($_SESSION["username"]);
+                $_SESSION["alreadyLoggedIn"] = true;
+                redirect("login_end");
+            }
+        }
+        if (isset($_SESSION['username'])) {
             redirect("login_end");
         }
+        $this->set(get_defined_vars());
+    }
+
+
+
+    public function login_end()
+    {
+        $username = $_SESSION["username"];
+        $userId = User::getUserId($username);
         $this->set(get_defined_vars());
     }
 
@@ -74,12 +94,7 @@ class UserController extends AppController
         $this->set(get_defined_vars());
     }
 
-    public function login_end()
-    {
-        $username = $_SESSION["username"];
-        $userId = User::getUserId($username);
-        $this->set(get_defined_vars());
-    }
+
 
     public function logout()
     {
