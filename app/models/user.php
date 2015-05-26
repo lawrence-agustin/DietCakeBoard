@@ -3,7 +3,7 @@ class User extends AppModel
 {
 
     public $validation = array(                        
-        'username'      => array('length' => array('validate_between', 8, 20)),
+        'username'      => array('length' => array('validate_between', 8, 20), 'exists' => array('userExists')),
         'password'      => array('length' => array('validate_between', 8, 20)),
         'lastname'      => array('length' => array('validate_between', 3, 20), 'valid'  => array('validate_name')),
         'firstname'     => array('length' => array('validate_between', 3, 20), 'valid'  => array('validate_name')),
@@ -86,6 +86,16 @@ class User extends AppModel
             throw new Exception("Error, record not found");
         }
         return $row;
+    }
+
+    public function userExists($username)
+    {
+        $db = DB::conn();
+        $row = $db->row('SELECT * FROM user WHERE username = ? ', array($username));
+        if (!$row) {
+            return true;
+        }
+        return false;
     }
 
 }

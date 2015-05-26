@@ -15,6 +15,10 @@
                     <?php eh($user->validation['username']['length'][2]) ?> characters in length.
                 </div>
             <?php endif ?>
+
+            <?php if(!empty($user->validation_errors['username']['exists'])): ?>
+                <div><em>Username</em> already exists.</div>
+            <?php endif ?>    
            
             <?php if(!empty($user->validation_errors['password']['length'])): ?>
                 <div><em>Password</em> must be between
