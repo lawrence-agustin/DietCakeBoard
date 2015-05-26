@@ -1,30 +1,20 @@
 <html>
-<head>
-<style type="text/css">
-    th, td {
-        width: 1%;
-    }
-
-</style>
-
-</head>
-<body> 
+<body>
     <h2>Hello, <?php echo ucfirst($_SESSION["username"])?></h2>
-    
-    
+
+
     <?php if(isset($threads)):?>
-    <h3>All threads</h3>
-    <table border="1">
-            <tr><th><b>Title</b></th><th><b>Category</b></th><th><b>Date Created</th></tr>
-        <?php foreach ($threads as $v): ?>
-            <tr><td align = "center"><a href="<?php eh(url('thread/view', array('thread_id' => $v->id))) ?>"> <?php eh($v->title) ?></a></td> <td align="center"> <?php eh($v->category)?></td> <td align = "center"> <?php eh($v->created)?> </td></tr> 
-        <?php endforeach ?>
-    </table>
-    <?php else: ?>
-        <em>Sorry, there are no threads.</em><br>
+        <h3>All threads</h3>
+        <table border="1">
+                <tr><th><b>Title</b></th><th><b>Category</b></th><th><b>Date Created</th><th>Owner</th></tr>
+            <?php foreach ($threads as $v): ?>
+                    <tr><td align = "center"><a href="<?php eh(url('thread/view', array('thread_id' => $v->id))) ?>"> <?php eh($v->title) ?></a></td> <td align="center"> <?php eh($v->category)?></td> <td align = "center"> <?php eh($v->created)?> </td>
+            <?php endforeach ?>
+            </tr>
+        </table>
+        <?php else: ?>
+            <em>Sorry, there are no threads.</em><br>
     <?php endif?>
-
-
 
     <br><a class="btn btn-medium btn-primary" href="<?php eh(url('thread/create')) ?>">Create Thread</a> <br><br>
 
@@ -47,10 +37,7 @@
     <?php else: ?>
         Next
     <?php endif ?>
-
-
-    <br> <br> <hr>
-    <a class="btn btn-medium btn-primary" href="<?php eh(url('thread/top_five')) ?>">Top 5</a>
-
 </body>
-</html>        
+</html>
+
+

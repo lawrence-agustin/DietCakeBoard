@@ -1,4 +1,4 @@
-<h2><?php eh($thread->title); $comment = new comment; ?></h2>
+<h2><?php eh($thread->title);?></h2>
 <p class="alert alert-success">
     You successfully wrote this comment.
 </p> 

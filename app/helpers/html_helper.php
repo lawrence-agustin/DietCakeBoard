@@ -5,11 +5,12 @@ function eh($string)
     echo htmlspecialchars($string, ENT_QUOTES);
 }
 
-function readable_text($s)
+function readable_text($string)
 {
-    $s = htmlspecialchars($s,ENT_QUOTES);
-    $s = nl2br($s);
-    return $s;
+    if (!isset($string)) return;
+    $string = htmlspecialchars($string, ENT_QUOTES);
+    $string = nl2br(trim($string));
+    echo $string;
 }
 
 function redirect($url)

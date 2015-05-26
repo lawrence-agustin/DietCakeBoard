@@ -52,9 +52,7 @@
         Next
     <?php endif ?>
 
-    
     <hr>
-
 
     <form class="well" method="post" action="<?php eh(url('comment/write'))?>">
         <label>Your name:</label>

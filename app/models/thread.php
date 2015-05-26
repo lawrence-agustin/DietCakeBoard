@@ -1,34 +1,40 @@
 <?php
 class Thread extends AppModel                    
 {
+    const MIN_STRING_LENGTH = 5;
+    const MAX_STRING_LENGTH = 200;
+
     public $validation = array(
         'title'=>array(
             'length'=>array(
-                'validate_between',1,30),
-            ),
-          'body'=>array(
+                'validate_between', self::MIN_STRING_LENGTH, self::MAX_STRING_LENGTH),
+        ),
+        'body'=>array(
             'length'=>array(
-                'validate_between',10,30),
-            ),
-        ); 
+                'validate_between', self::MIN_STRING_LENGTH, self::MAX_STRING_LENGTH),
+        ),
+        'new_title'=>array(
+            'length'=>array(
+                'validate_between', self::MIN_STRING_LENGTH, self::MAX_STRING_LENGTH),
+        ),
+        'new_thread_body'=>array(
+            'length'=>array(
+                'validate_between', self::MIN_STRING_LENGTH, self::MAX_STRING_LENGTH),
+        ),
+    ); 
 
     public static function getAll($offset, $limit)                
     {
         $threads = array();
         $db = DB::conn();
         $rows = $db->rows("SELECT * FROM thread LIMIT {$offset}, {$limit}");
-        
         foreach ($rows as $row) {                    
             $threads[] = new Thread($row);
         }
-        
         return $threads;
     }   
 
-    public static function getThreadsByCategory($categoryName)
-    {
-        
-    }
+
 
     public function create(Comment $comment, $threadBody, $creator_id, $category)
     {
@@ -42,10 +48,10 @@ class Thread extends AppModel
         $db->begin();
         
         $params = array(
-                'title'   => $this->title,
-                'body' => $threadBody,
-                'creator_id' => $creator_id,
-                'category' => $category
+                'title'         => $this->title,
+                'body'          => $threadBody,
+                'creator_id'    => $creator_id,
+                'category'      => $category
         );
 
         $db->insert('thread',$params);
@@ -55,24 +61,21 @@ class Thread extends AppModel
         $db->commit();
     }
 
-
     public function update($threadId)
     {
-        if(!$this->validate()) {
+        unset($this->title);
+        unset($this->body);
+        $this->validate();
+        if($this->hasError()) {
             throw new ValidationException("Invalid Input");
         }
-        try {
-            $db = DB::conn();
-            $params = array(
+
+        $db = DB::conn();
+        $params = array(
                 'title'   => $this->new_title,
                 'body'    => $this->new_thread_body
-            );
-            $db->update('thread', $params, array('id' => $threadId));
-
-        } catch(Exception $e) {
-            throw $e;
-        }
-
+        );
+        $db->update('thread', $params, array('id' => $threadId));
     }
 
     public static function deleteThreadById($thread_id)
@@ -86,15 +89,16 @@ class Thread extends AppModel
         }
     }
 
-    // public function update()
-    // {
-    //     $db = DB::conn();
-    //     $params = array(
-    //         'title' => $this->new_title;
-    //         'body'  => $this->new_body;
-    //     );
-    //     $db->update('thread', $params, array('id' => $this->id));
-    // }
+    public static function deleteCommentsByThreadId($thread_id)
+    {
+        $db = DB::conn();
+        try {
+            $db->query("DELETE from comment WHERE thread_id = ?", array($thread_id));
+        }
+        catch (Exception $e) {
+            throw $e;
+        }
+    }
 
     public function write(Comment $comment)                    
     {
@@ -103,21 +107,19 @@ class Thread extends AppModel
         if(!$comment->validate()){
             throw new ValidationException('Invalid Comment');
         }
-        else{
+        else {
             $params = array(
                 'thread_id' => $this->id,
                 'username' => $comment->username,
                 'body' => $comment->body
             );
-            $db->insert('comment',$params);
-        }
-        
+            $db->insert('comment', $params);
+        }        
     }
 
     public static function get($id)            
     {
         $db = DB::conn();
-
         $row = $db->row('SELECT * FROM thread WHERE id = ?', array($id));
 
         if(!$row) {
@@ -133,11 +135,9 @@ class Thread extends AppModel
         return $db->value("SELECT COUNT(*) FROM thread");
     }  
 
-
     public function getComments()
     {
         $comments = array();
-        
         $db = DB::conn();
         $rows = $db->rows('SELECT * FROM comment WHERE thread_id = ? ORDER BY created ASC', array($this->id));
 
@@ -150,15 +150,15 @@ class Thread extends AppModel
     public static function getTitle($id)
     {
         $db = DB::conn();
-        $row = $db->row('SELECT title FROM thread WHERE id = ?', array($id));
-        return $row;
+        $title = $db->value('SELECT title FROM thread WHERE id = ?', array($id));
+        return $title;
     }
 
     public static function getBodyContents($id)
     {
         $db = DB::conn();
-        $row = $db->row('SELECT body FROM thread WHERE id = ?', array($id));
-        return $row;
+        $body = $db->row('SELECT body FROM thread WHERE id = ?', array($id));
+        return $body;
     }    
 
     public static function getOwnerId($id)
@@ -168,7 +168,6 @@ class Thread extends AppModel
         return $row['creator_id'];
     }
 
-
     public function isOwnedBy($username)
     {
         $db = DB::conn();
@@ -176,14 +175,22 @@ class Thread extends AppModel
         if($userId === $this->creator_id){
             return true;
         }
-        else return false;
+        
+        return false;
     }
 
     public static function getTopFive()
     {
         $db = DB::conn();
         $rows = $db->rows(
-            'SELECT thread_id, count(*) as commentCount FROM comment GROUP BY thread_id ORDER BY commentCount DESC LIMIT 5');
+            'SELECT thread_id, count(*) as commentCount FROM comment GROUP BY thread_id ORDER BY commentCount DESC LIMIT 10');
+        return $rows;
+    }
+
+    public static function getThreadsByCategory($categoryName)
+    {
+        $db = DB::conn();
+        $rows = $db->rows('SELECT * FROM thread WHERE category = ?', array($categoryName));
         return $rows;
     }
 

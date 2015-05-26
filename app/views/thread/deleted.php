@@ -1,1 +1,1 @@
-<h2><?php eh($title["title"]); ?> has been successfully deleted</h2>
+<h2>Thread has been successfully deleted</h2>

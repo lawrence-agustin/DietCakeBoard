@@ -3,8 +3,6 @@
 <?php if($thread->hasError() || $comment->hasError()): ?>
     <div class="alert alert-block">
         <h4 class="alert-heading">Validation Error</h4>
-        <?php //endif?>
-
         <?php if(!empty($thread->validation_errors['title']['length'])): ?>
             <div><em>Title</em> must between 
                 <?php eh($thread->validation['title']['length'][1]) ?> and
@@ -19,6 +17,13 @@
         <label>Your name</label>
         <input type="text" class="span2" name="username" value="<?php echo ucfirst($_SESSION["username"]); ?>">
 
+         <label>Category: </label>
+         <select name="category">
+          <option value="General">General</option>
+          <option value="Technology">Technology</option>
+          <option value="Music">Music</option>
+          <option value="Arts">Arts</option>
+        </select> 
 
         <label>Body: </label>
         <textarea name="thread_body"><?php eh(Param::get('thread_body'))?> </textarea>

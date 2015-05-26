@@ -1,7 +1,6 @@
 <?php
 class UserController extends AppController
 {
-
     public function registration()
     {
         $params = array(
@@ -13,27 +12,25 @@ class UserController extends AppController
             'email' => Param::get('email'),
             );
 
-        
         $user = new User();
-
         $user->setUserInfo($params);
         $page = Param::get('page_next', 'registration');
 
         switch ($page) {    
             case 'registration':
-            break;
+                break;
 
             case 'registration_end':
-            try {
-                $user->create();
-            } catch (ValidationException $e) {
-                $page = 'registration';
-            }
-            break;
+                try {
+                    $user->create();
+                } catch (ValidationException $e) {
+                    $page = 'registration';
+                }
+                break;
 
             default:
-            throw new NotFoundException("{$page} is not found");
-            break;
+                throw new NotFoundException("{$page} is not found");
+                break;
         }
         $this->set(get_defined_vars());
         $this->render($page);
@@ -41,46 +38,47 @@ class UserController extends AppController
 
     public function login()
     {
-
         $error = false;
-        $url = '';
         $isLoggedIn = false;
 
-        //if($isLoggedIn){
-            $params = array(
-                'username' => Param::get('username', ''),
-                'password' => Param::get('password', '')
-            );
-            $login = new Login($params);
-            try {
-                $login->checkInput();
-                $login->accept();
-            } 
-            catch (ValidationException $e) {
-                $error = true;
-            } 
-            catch (RecordNotFoundException $e) {
-                $login->error = true;
-            }
+        $params = array(
+            'username' => Param::get('username', ''),
+            'password' => Param::get('password', '')
+        );
+        $login = new Login($params);
+        try {
+            $login->checkInput();
+            $login->accept();
+        } 
+        catch (ValidationException $e) {
+            $error = true;
+        } 
+        catch (RecordNotFoundException $e) {
+            $login->error = true;
+        }
 
-            if (!$login->hasError() && !($error)) { 
-                
-                $redirect_url = "thread/index";     
-                session_start();
-                $_SESSION["username"] = Param::get('username');
-                redirect("login_end");
-
-             }
-        //}
-
-
+        if (!$login->hasError() && !($error)) {       
+            $redirect_url = "thread/index";     
+            session_start();
+            $_SESSION["username"] = Param::get('username');
+            $_SESSION["user_id"] = User::getUserId($_SESSION["username"]);
+            redirect("login_end");
+        }
         $this->set(get_defined_vars());
+    }
 
+    public function profile()
+    {
+        $user_id = Param::get('user_id');
+        $user_info = User::getInfoById($user_id);
+        $this->set(get_defined_vars());
     }
 
     public function login_end()
     {
-
+        $username = $_SESSION["username"];
+        $userId = User::getUserId($username);
+        $this->set(get_defined_vars());
     }
 
     public function logout()
