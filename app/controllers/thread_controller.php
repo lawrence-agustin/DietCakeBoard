@@ -152,7 +152,7 @@ class ThreadController extends AppController
         {
             $thread_id = Param::get('thread_id');
             $title = Thread::getTitle($thread_id);
-            Thread::deleteThreadById($thread_id);
+            Thread::deleteById($thread_id);
             Thread::deleteCommentsByThreadId($thread_id);
             $this->set(get_defined_vars());
         }

@@ -80,7 +80,7 @@ class Thread extends AppModel
         $db->update('thread', $params, array('id' => $threadId));
     }
 
-    public static function deleteThreadById($thread_id)
+    public static function deleteById($thread_id)
     {
         $db = DB::conn();
         try {
