@@ -51,7 +51,15 @@ class Comment extends AppModel
     {
         $db = DB::conn();
         return $db->value("SELECT COUNT(*) FROM comment WHERE thread_id = ? ", array($thread_id));
-    }   
+    }  
+
+    public static function getTopFive()
+    {
+        $db = DB::conn();
+        $rows = $db->rows(
+            'SELECT thread_id, count(*) as commentCount FROM comment GROUP BY thread_id ORDER BY commentCount DESC LIMIT 10');
+        return $rows;
+    } 
 
 }
 ?>

@@ -188,7 +188,7 @@ class ThreadController extends AppController
     {
         if(isset($_SESSION["username"]))
         {
-            $topFive = Thread::getTopFive();
+            $topFive = Comment::getTopFive();
             $indexes = array();
             $commentCount = array();
 

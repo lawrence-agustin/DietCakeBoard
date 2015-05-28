@@ -181,14 +181,6 @@ class Thread extends AppModel
         return false;
     }
 
-    public static function getTopFive()
-    {
-        $db = DB::conn();
-        $rows = $db->rows(
-            'SELECT thread_id, count(*) as commentCount FROM comment GROUP BY thread_id ORDER BY commentCount DESC LIMIT 10');
-        return $rows;
-    }
-
     public static function getThreadsByCategory($categoryName)
     {
         $db = DB::conn();
