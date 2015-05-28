@@ -3,6 +3,7 @@
 <body> 
     <h1><?php eh($thread->title) ?></h1>
     <h4>Category: <?php eh($thread->category);?></h4>
+    <h4>Created by: <a href="<?php eh(url('user/profile', array('user_id' => $ownerId)))?>"> <?php eh($ownerUsername)?> </a>
     
      <form class="well" method="post">
         <input type="hidden" name="threadTitle" value="<?php eh($thread->title) ?>"/>

@@ -6,11 +6,11 @@
     <?php if(isset($threads)):?>
         <h3>All threads</h3>
         <table border="1">
-                <tr><th><b>Title</b></th><th><b>Category</b></th><th><b>Date Created</th><th>Owner</th></tr>
+                <tr><th height="40"><b>Title</b></th><th><b>Category</b></th><th><b>Date Created</th><th>Owner</th></tr>
             <?php foreach ($paginatedThreads as $v): ?>
                     <tr><td align = "center"><a href="<?php eh(url('thread/view', array('thread_id' => $v->id))) ?>"> <?php eh($v->title) ?></a></td> <td align="center"> <?php eh($v->category)?></td> <td align = "center"> <?php eh($v->created)?> </td>
             <?php endforeach ?>
-            </tr>
+                    </tr>
         </table>
         <?php else: ?>
             <em>Sorry, there are no threads.</em><br>
@@ -37,7 +37,7 @@
     <?php else: ?>
         Next
     <?php endif ?>
+
 </body>
 </html>
-
 

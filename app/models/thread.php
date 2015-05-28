@@ -39,9 +39,12 @@ class Thread extends AppModel
 
     public function create(Comment $comment, $creator_id, $category)
     {
-        if($this->validate() || $comment->validate()){
+        $this->validate();
+        $comment->validate();
+        if($this->hasError() || $comment->hasError()){
             throw new ValidationException('Invalid Input');
         }
+
         
         $db = DB::conn();
         $db->begin();

@@ -74,7 +74,7 @@ class UserController extends AppController
                 }
             }
             if (isset($_SESSION['username'])) {
-                redirect("login_end");
+                redirect("user/login_end");
             }
             $this->set(get_defined_vars());
         }

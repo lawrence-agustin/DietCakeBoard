@@ -22,7 +22,6 @@ class ThreadController extends AppController
             foreach($paginatedThreads as $v){
                 $threadOwner[] = User::getUsername($v->creator_id);
             }
-
             $pagination->checkLastPage($threads);
             $total = Thread::countAll();
             $pages = ceil($total / $threads_per_page);
