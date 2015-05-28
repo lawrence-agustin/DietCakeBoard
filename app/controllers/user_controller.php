@@ -1,6 +1,9 @@
 <?php
 class UserController extends AppController
 {
+    const REGISTRATION = 'registration';
+    const REGISTRATION_END = 'registration_end';
+    
     public function registration()
     {
         $params = array(
@@ -17,10 +20,10 @@ class UserController extends AppController
         $page = Param::get('page_next', 'registration');
 
         switch ($page) {    
-            case 'registration':
+            case self::REGISTRATION:
                 break;
 
-            case 'registration_end':
+            case self::REGISTRATION_END:
                 try {
                     $user->create();
                 } catch (ValidationException $e) {

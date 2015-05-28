@@ -1,6 +1,13 @@
 <?php 
 class ThreadController extends AppController            
 {
+    const EDIT = 'edit';
+    const EDIT_END = 'edit_end';
+    const CREATE = 'create';
+    const CREATE_END = 'create_end';
+    const WRITE = 'write';
+    const WRITE_END = 'write_end';
+
     public function index()                        
     {
         if(isset($_SESSION["username"]))
@@ -74,9 +81,9 @@ class ThreadController extends AppController
             $_SESSION["title"] = Param::get('title');
             $_SESSION["threadBody"] = Param::get('thread_body');
             switch ($page) {
-            case 'edit':                    
+            case self::EDIT:                    
                 break;
-            case 'edit_end':  
+            case self::EDIT_END:  
                 $title                      = Param::get('title');
                 $threadBody                 = Param::get('thread_body');
                 $thread->new_title          = $title;
@@ -105,9 +112,9 @@ class ThreadController extends AppController
             $comment = new Comment;
             $page = Param::get('page_next','create');
             switch($page){
-                case 'create':
+                case self::CREATE:
                     break;
-                case 'create_end':
+                case self::CREATE_END:
                     $thread->title = Param::get('title');
                     $thread->body = Param::get('thread_body');
                     $category = Param::get('category');
@@ -165,9 +172,9 @@ class ThreadController extends AppController
         $comment = new Comment;
         $page = Param::get('page_next', 'write');
         switch ($page) {
-        case 'write':                    
+        case self::WRITE:                    
             break;
-        case 'write_end':                
+        case self::WRITE_END:                
             $comment->username = Param::get('username');
             $comment->body = Param::get('body');
             try {            
