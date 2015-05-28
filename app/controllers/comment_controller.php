@@ -8,7 +8,7 @@
 	    {
 	        $thread = Thread::get(Param::get('thread_id'));
 	        $threadId = Param::get('thread_id');
-	        $comment = new Comment;
+	        $comment = new Comment();
 	        $page = Param::get('page_next', 'write');
 	        switch ($page) {
 		        case self::WRITE:                    

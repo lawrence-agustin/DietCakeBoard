@@ -39,7 +39,7 @@ class ThreadController extends AppController
 
     public function general_category()
     {
-        $threads["General"] = Thread::getThreadsByCategory("General");
+        $threads = Thread::getThreadsByCategory("General");
         $this->set(get_defined_vars());
     }
 
@@ -66,7 +66,7 @@ class ThreadController extends AppController
             $pagination->checkLastPage($comments);
             $total = Comment::countAll($thread_id);
             $pages = ceil($total / $comments_per_page);
-            $threadContents = Thread::getBodyContents((int)$thread_id);
+            $threadContent = Thread::getBodyContents((int)$thread_id);
             $this->set(get_defined_vars());
         }
         else redirect(url('user/login_notice'));

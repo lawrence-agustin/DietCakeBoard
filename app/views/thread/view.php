@@ -5,18 +5,18 @@
     <h4>Category: <?php eh($thread->category);?></h4>
     <h4>Created by: <a href="<?php eh(url('user/profile', array('user_id' => $ownerId)))?>"> <?php eh($ownerUsername)?> </a>
     
-     <form class="well" method="post">
+     <form class="well" method="post" action="edit">
         <input type="hidden" name="threadTitle" value="<?php eh($thread->title) ?>"/>
         <input type="hidden" name="threadBody" value="<?php eh($threadContents["body"]) ?>"/>
 
-        <label><?php eh($threadContents["body"]); ?></label> <br><br>
+        <label><?php eh($threadContent); ?></label> <br><br>
 
     <?php if($_SESSION["username"] == $ownerUsername): ?>
         <label><em>You are the owner of this thread.</em></label>
         <button type="submit" formaction="<?php eh(url('thread/edit', array('thread_id' => $thread->id)))?>" class="btn btn-primary">Edit Thread</button>
         <button type="submit" formaction="<?php eh(url('thread/confirm_delete', array('thread_id' => $thread->id)))?>" class="btn btn-primary">Delete Thread</button>
-
     <?php endif; ?>
+
      </form>
 
      <br><br>
@@ -28,8 +28,6 @@
             </div>
             <?php echo readable_text($v->body) ?>
         </div>
-
-
     <?php endforeach ?>
 
     <br> <br>

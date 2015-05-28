@@ -79,8 +79,6 @@
     }
 
 }
-
-
 </style>
 </head>
 
@@ -94,13 +92,10 @@
               <li class="home"><a href="<?php eh(url('user/login')); ?>">Home</a></li>
           <?php endif ?>
 
-
           <?php if(isset($_SESSION["username"])):?>
                 <li class="about"><a href="<?php eh(url('user/profile', array('user_id'=>$_SESSION['user_id']))); ?>">Profile</a></li>
                 <li class="about"><a href="<?php eh(url('thread/index')); ?>">Threads</a></li>
                 <li class="about"><a href="<?php eh(url('thread/top_five')) ?>">Trending</a></li>
-                <li class="about"><a href="<?php eh(url('user/logout')); ?>">Logout</a></li>
-
           <?php endif?>
       </ul>
   </div>

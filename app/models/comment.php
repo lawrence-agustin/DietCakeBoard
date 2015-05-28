@@ -23,7 +23,7 @@ class Comment extends AppModel
         $db = DB::conn();
         $rows = $db->rows("SELECT * FROM comment WHERE thread_id = ? LIMIT {$offset}, {$limit}", array($thread_id)); //tried to use placeholder here, but it resulted to an error "PDO Exception"
         foreach ($rows as $row) {                    
-            $comments[] = new Comment($row);
+            $comments[] = new self($row);
         }
         
         return $comments;

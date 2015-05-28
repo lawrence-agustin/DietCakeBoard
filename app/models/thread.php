@@ -35,8 +35,6 @@ class Thread extends AppModel
         return $threads;
     }   
 
-
-
     public function create(Comment $comment, $creator_id, $category)
     {
         $this->validate();
@@ -141,7 +139,7 @@ class Thread extends AppModel
     {
         $comments = array();
         $db = DB::conn();
-        $rows = $db->rows('SELECT * FROM comment WHERE thread_id = ? ORDER BY created ASC', array($this->id));
+        $rows = $db->rows('SELECT * FROM comment WHERE thread_id = ? ORDER BY created', array($this->id));
 
         foreach ($rows as $row) {                        
             $comments[] = new Comment($row);
@@ -159,15 +157,15 @@ class Thread extends AppModel
     public static function getBodyContents($id)
     {
         $db = DB::conn();
-        $body = $db->row('SELECT body FROM thread WHERE id = ?', array($id));
+        $body = $db->value('SELECT body FROM thread WHERE id = ?', array($id));
         return $body;
     }    
 
     public static function getOwnerId($id)
     {
         $db = DB::conn();
-        $row = $db->row('SELECT creator_id FROM thread WHERE id = ?', array($id));
-        return $row['creator_id'];
+        $value = $db->value('SELECT creator_id FROM thread WHERE id = ?', array($id));
+        return $value;
     }
 
     public function isOwnedBy($username)
