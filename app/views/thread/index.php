@@ -1,4 +1,5 @@
 <html>
+
 <body>
     <h2>Hello, <?php echo ucfirst($_SESSION["username"])?></h2>
 
@@ -8,7 +9,7 @@
         <table border="1">
                 <tr><th height="40"><b>Title</b></th><th><b>Category</b></th><th><b>Date Created</b></th></tr>
             <?php foreach ($paginatedThreads as $v): ?>
-                <tr><td height="30" align = "center"><a href="<?php eh(url('thread/view', array('thread_id' => $v->id))) ?>"> <?php eh($v->title) ?></a></td> <td align="center"> <?php eh($v->category)?></td> <td align = "center"> <?php eh($v->created)?> </td>
+                <tr><td height="30" align = "center"><a href="<?php eh(url('thread/view', array('thread_id' => $v->id))) ?>"> <?php eh($v->title) ?></a></td> <td align="center"> <a href="<?php eh(lcfirst($v->category).'_category')?>" ><?php eh($v->category)?></a></td> <td align = "center"> <?php eh($v->created)?> </td>
             <?php endforeach ?>
                 </tr>
         </table>
@@ -37,8 +38,6 @@
     <?php else: ?>
         Next
     <?php endif ?>
-
-
 
 </body>
 </html>

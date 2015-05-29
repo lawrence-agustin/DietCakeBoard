@@ -95,7 +95,7 @@
           <?php if(isset($_SESSION["username"])):?>
                 <li class="about"><a href="<?php eh(url('user/profile', array('user_id'=>$_SESSION['user_id']))); ?>">Profile</a></li>
                 <li class="about"><a href="<?php eh(url('thread/index')); ?>">Threads</a></li>
-                <li class="about"><a href="<?php eh(url('thread/top_five')) ?>">Trending</a></li>
+                <li class="about"><a href="<?php eh(url('thread/top_ten')) ?>">Trending</a></li>
           <?php endif?>
       </ul>
   </div>
@@ -106,7 +106,7 @@
     <div class="container">
       <?php if(isset($_SESSION["username"])):?>
         <a class="brand" href="<?php eh(url('thread/index')); ?>">Interconnect</a>
-        <p align="right">You are logged in as: <b><?php echo ucfirst($_SESSION["username"]); ?> </b><br>
+        <p align="right">You are logged in as: <a href="<?php eh(url('user/profile', array('user_id'=>$_SESSION['user_id']))); ?>"> <b><?php echo ucfirst($_SESSION["username"]); ?> </b> </a><br>
             <a href="<?php eh(url('user/logout'));?>">Logout</a></p>
         <?php else: ?>
             <a class="brand" href="login">DietCake Hello</a>

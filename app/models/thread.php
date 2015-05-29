@@ -28,7 +28,8 @@ class Thread extends AppModel
     {
         $threads = array();
         $db = DB::conn();
-        $rows = $db->rows("SELECT * FROM thread LIMIT {$offset}, {$limit}");
+        $sql = sprintf("SELECT * FROM thread LIMIT %d, %d", $offset, $limit);
+        $rows = $db->rows($sql);
         foreach ($rows as $row) {                    
             $threads[] = new Thread($row);
         }
@@ -89,17 +90,6 @@ class Thread extends AppModel
         }
     }
 
-    public static function deleteCommentsByThreadId($thread_id)
-    {
-        $db = DB::conn();
-        try {
-            $db->query("DELETE from comment WHERE thread_id = ?", array($thread_id));
-        }
-        catch (Exception $e) {
-            throw $e;
-        }
-    }
-
     public function write(Comment $comment)                    
     {
         $db = DB::conn();
@@ -134,18 +124,6 @@ class Thread extends AppModel
         $db = DB::conn();
         return $db->value("SELECT COUNT(*) FROM thread");
     }  
-
-    public function getComments()
-    {
-        $comments = array();
-        $db = DB::conn();
-        $rows = $db->rows('SELECT * FROM comment WHERE thread_id = ? ORDER BY created', array($this->id));
-
-        foreach ($rows as $row) {                        
-            $comments[] = new Comment($row);
-        }
-        return $comments;
-    }
 
     public static function getTitle($id)
     {
@@ -183,7 +161,10 @@ class Thread extends AppModel
     {
         $db = DB::conn();
         $rows = $db->rows('SELECT * FROM thread WHERE category = ?', array($categoryName));
-        return $rows;
+        foreach ($rows as $row) {                    
+            $threads[] = new Thread($row);
+        }
+        return $threads;
     }
 
     public function threadExists($title)

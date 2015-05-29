@@ -43,10 +43,7 @@ class UserController extends AppController
     {
         if(!isset($_SESSION["username"])) 
         {
-        
-            $isLoggedIn = false;
-
-            $check = Param::get('call',false);
+            $check = Param::get('call', false);
             $error = false;
 
             if($check)
@@ -84,8 +81,6 @@ class UserController extends AppController
         else redirect(url('user/login_end'));
     }
 
-
-
     public function login_end()
     {
         $username = $_SESSION["username"];
@@ -112,7 +107,6 @@ class UserController extends AppController
 
     public function login_notice()
     {
-
     }
 
 

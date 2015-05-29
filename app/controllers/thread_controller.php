@@ -7,31 +7,30 @@ class ThreadController extends AppController
     const CREATE_END = 'create_end';
     const WRITE = 'write';
     const WRITE_END = 'write_end';
+    const PAGE_ONE = 1;
+    const THREADS_PER_PAGE = 10;
+    const COMMENTS_PER_PAGE = 10;
 
     public function index()                        
     {
         if(isset($_SESSION["username"]))
         {
-            $threads_per_page = 10; 
-            $pageOne = 1;
-            $page = Param::get('page',$pageOne);
-            
-
-            $pagination = new SimplePagination($page, $threads_per_page);
+            $page = Param::get('page', self::PAGE_ONE);
+            $pagination = new SimplePagination($page, self::THREADS_PER_PAGE);
             $threads = Thread::getAll($pagination->start_index - 1, $pagination->count + 1);
-
             $paginatedThreads = array();
             $threadOwner = array();
 
-            for($i=0; $i < sizeof($threads); $i++){
+            for($i=0; $i < sizeof($threads); $i++) {
                 $paginatedThreads[] = $threads[$i];
             }
-            foreach($paginatedThreads as $v){
+
+            foreach($paginatedThreads as $v) {
                 $threadOwner[] = User::getUsername($v->creator_id);
             }
             $pagination->checkLastPage($threads);
             $total = Thread::countAll();
-            $pages = ceil($total / $threads_per_page);
+            $pages = ceil($total / self::THREADS_PER_PAGE);
             $this->set(get_defined_vars());
         }
         else redirect(url('user/login_notice'));
@@ -39,33 +38,60 @@ class ThreadController extends AppController
 
     public function general_category()
     {
-        $threads = Thread::getThreadsByCategory("General");
-        $this->set(get_defined_vars());
+        if(isset($_SESSION["username"]))
+        {
+            $threads = Thread::getThreadsByCategory("General");
+            $this->set(get_defined_vars());
+        }
+        else redirect(url('user/login_notice'));
     }
 
     public function technology_category()
     {
+        if(isset($_SESSION["username"]))
+        {
+            $threads = Thread::getThreadsByCategory("technology");
+            $this->set(get_defined_vars());
+        }
+        else redirect(url('user/login_notice'));
+    }
 
+    public function music_category()
+    {
+        if(isset($_SESSION["username"]))
+        {
+            $threads = Thread::getThreadsByCategory("music");
+            $this->set(get_defined_vars());
+        }
+        else redirect(url('user/login_notice'));
+    }
+
+    public function arts_category()
+    {
+        if(isset($_SESSION["username"]))
+        {
+            $threads = Thread::getThreadsByCategory("arts");
+            $this->set(get_defined_vars());
+        }
+        else redirect(url('user/login_notice'));
     }
 
     public function view()                
     {
         if(isset($_SESSION["username"])) 
         {
-            $comments_per_page = 10;
-            $pageOne = 1;
             $thread = Thread::get(Param::get('thread_id'));
             $thread_id = Param::get('thread_id');
             $owner = Thread::getOwnerId($thread_id);
             $ownerId = $owner["creator_id"];
             $ownerUsername = User::getUsername($ownerId);
-            $comments = $thread->getComments();        
-            $page = Param::get("page",$pageOne); 
-            $pagination = new SimplePagination($page, $comments_per_page);
+            $comments = Comment::getComments($ownerId);      
+            $page = Param::get("page", self::PAGE_ONE); 
+            $pagination = new SimplePagination($page, self::COMMENTS_PER_PAGE);
             $comments = Comment::getAll($thread_id, $pagination->start_index - 1, $pagination->count + 1);
             $pagination->checkLastPage($comments);
             $total = Comment::countAll($thread_id);
-            $pages = ceil($total / $comments_per_page);
+            $pages = ceil($total / self::COMMENTS_PER_PAGE);
             $threadContent = Thread::getBodyContents((int)$thread_id);
             $this->set(get_defined_vars());
         }
@@ -108,8 +134,8 @@ class ThreadController extends AppController
     { 
         if(isset($_SESSION["username"])) 
         {
-            $thread = new Thread;
-            $comment = new Comment;
+            $thread = new Thread();
+            $comment = new Comment();
             $page = Param::get('page_next','create');
             switch($page){
                 case self::CREATE:
@@ -160,7 +186,7 @@ class ThreadController extends AppController
             $thread_id = Param::get('thread_id');
             $title = Thread::getTitle($thread_id);
             Thread::deleteById($thread_id);
-            Thread::deleteCommentsByThreadId($thread_id);
+            Comment::deleteCommentsByThreadId($thread_id);
             $this->set(get_defined_vars());
         }
         else redirect(url('user/login_notice')); 
@@ -169,29 +195,29 @@ class ThreadController extends AppController
     public function write()                        
     {
         $thread = Thread::get(Param::get('thread_id'));
-        $comment = new Comment;
+        $comment = new Comment();
         $page = Param::get('page_next', 'write');
         switch ($page) {
-        case self::WRITE:                    
-            break;
-        case self::WRITE_END:                
-            $comment->username = Param::get('username');
-            $comment->body = Param::get('body');
-            try {            
-                $thread->write($comment);
-            } catch (ValidationException $e) {                    
-                $page = 'write';
-            }                        
-            break;
-        default:                    
-            throw new NotFoundException("{$page} is not found");        
-            break;
+            case self::WRITE:                    
+                break;
+            case self::WRITE_END:                
+                $comment->username = Param::get('username');
+                $comment->body = Param::get('body');
+                try {            
+                    $thread->write($comment);
+                } catch (ValidationException $e) {                    
+                    $page = 'write';
+                }                        
+                break;
+            default:                    
+                throw new NotFoundException("{$page} is not found");        
+                break;
         }
         $this->set(get_defined_vars());
         $this->render($page);
     }
 
-    public function top_five()
+    public function top_ten()
     {
         if(isset($_SESSION["username"]))
         {

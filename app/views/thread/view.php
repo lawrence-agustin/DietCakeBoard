@@ -7,7 +7,7 @@
     
      <form class="well" method="post" action="edit">
         <input type="hidden" name="threadTitle" value="<?php eh($thread->title) ?>"/>
-        <input type="hidden" name="threadBody" value="<?php eh($threadContents["body"]) ?>"/>
+        <input type="hidden" name="threadBody" value="<?php eh($threadContent) ?>"/>
 
         <label><?php eh($threadContent); ?></label> <br><br>
 

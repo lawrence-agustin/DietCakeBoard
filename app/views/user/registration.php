@@ -7,70 +7,74 @@
     <?php if($user->hasError()): ?>
 
         <div class="alert alert-block">
-            <h4 class="alert-heading">Validation Error</h4>
-
+            <h4 class="alert-heading">Validation Error</h4><br>
+            
             <?php if(!empty($user->validation_errors['username']['length'])): ?>
-                <div><em>Username</em> must be between
+                <div><em><b>Username</b></em> must be between
                     <?php eh($user->validation['username']['length'][1]) ?> and
                     <?php eh($user->validation['username']['length'][2]) ?> characters in length.
                 </div>
             <?php endif ?>
-
+            
             <?php if(!empty($user->validation_errors['username']['exists'])): ?>
-                <div><em>Username</em> already exists.</div>
+                <div><em><b>Username</b></em> already exists.</div>
             <?php endif ?>    
            
             <?php if(!empty($user->validation_errors['password']['length'])): ?>
-                <div><em>Password</em> must be between
+                <div><em><b>Password</b></em> must be between
                     <?php eh($user->validation['password']['length'][1]) ?> and
                     <?php eh($user->validation['password']['length'][2]) ?> characters in length.
                 </div>
-            <?php endif ?>
+            <?php endif ?>           
             
             <?php if(!empty($user->validation_errors['lastname']['length'])): ?>
-                <div><em>Last name</em> must be between
+                <div><em><b>Last name</b></em> must be between
                     <?php eh($user->validation['lastname']['length'][1]) ?> and
                     <?php eh($user->validation['lastname']['length'][2]) ?> characters in length.
                 </div>
-            <?php endif ?>
-
+            <?php endif ?>            
+            
             <?php if(!empty($user->validation_errors['lastname']['valid'])): ?>
-                <div><em>Last Name</em> is invalid. Must contain letters only.</div>
-            <?php endif ?>
-
+                <div><em><b>Last Name</b></em> is invalid. Must contain letters only.</div>
+            <?php endif ?>           
+            
             <?php if(!empty($user->validation_errors['firstname']['length'])): ?>
-                <div><em>First name</em> must be between
+                <div><em><b>First name</b></em> must be between
                     <?php eh($user->validation['firstname']['length'][1]) ?> and
                     <?php eh($user->validation['firstname']['length'][2]) ?> characters in length.
                 </div>
-            <?php endif ?>
-
+            <?php endif ?>           
+            
             <?php if(!empty($user->validation_errors['firstname']['valid'])): ?>
-                <div><em>First Name</em> is invalid. Must contain letters only.</div>
-            <?php endif ?>
+                <div><em><b>First Name</b></em> is invalid. Must contain letters only.</div>
+            <?php endif ?>            
             
             <?php if(!empty($user->validation_errors['middlename']['length'])): ?>
-                <div><em>Middlename</em> must be between
+                <div><em><b>Middlename</b></em> must be between
                     <?php eh($user->validation['middlename']['length'][1]) ?> and
                     <?php eh($user->validation['middlename']['length'][2]) ?> characters in length.
                 </div>
-            <?php endif ?>
-
+            <?php endif ?>           
+            
             <?php if(!empty($user->validation_errors['middlename']['valid'])): ?>
-                <div><em>Middle Name</em> is invalid. Must only contain letters only.</div>
-            <?php endif ?>
+                <div><em><b>Middle Name</b></em> is invalid. Must only contain letters only.</div>
+            <?php endif ?>           
             
              <?php if(!empty($user->validation_errors['email']['length'])): ?>
-                <div><em>Email Address</em> must be between
+                <div><em><b>Email Address</b></em> must be between
                     <?php eh($user->validation['email']['length'][1]) ?> and
                     <?php eh($user->validation['email']['length'][2]) ?> characters in length.
                 </div>
-            <?php endif ?>
-
+            <?php endif ?>            
+            
+            <?php if(!empty($user->validation_errors['email']['exists'])): ?>
+                <div><em><b>Email</b></em> is already registered.</div>
+            <?php endif ?>              
+            
              <?php if(!empty($user->validation_errors['email']['valid'])): ?>
-                <div><em>Email Address</em> is invalid</div>
+                <div><em><b>Email Address</b></em> is invalid</div>
             <?php endif ?>
-
+            
         </div>
     <?php endif ?>
 

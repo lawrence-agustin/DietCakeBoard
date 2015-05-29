@@ -8,7 +8,7 @@ class User extends AppModel
         'lastname'      => array('length' => array('validate_between', 3, 20), 'valid'  => array('validate_name')),
         'firstname'     => array('length' => array('validate_between', 3, 20), 'valid'  => array('validate_name')),
         'middlename'    => array('length' => array('validate_between', 3, 20), 'valid'  => array('validate_name')),
-        'email'         => array('length' => array('validate_between', 15,35), 'valid'  => array('validate_email')),
+        'email'         => array('length' => array('validate_between', 10,35), 'valid'  => array('validate_email'), 'exists' => array('emailExists')),
     );
 
     public function __construct()
@@ -92,6 +92,16 @@ class User extends AppModel
     {
         $db = DB::conn();
         $row = $db->row('SELECT * FROM user WHERE username = ? ', array($username));
+        if (!$row) {
+            return true;
+        }
+        return false;
+    }
+
+    public function emailExists($email)
+    {
+        $db = DB::conn();
+        $row = $db->row('SELECT * FROM user WHERE email = ? ', array($email));
         if (!$row) {
             return true;
         }

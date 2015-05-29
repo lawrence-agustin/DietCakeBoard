@@ -21,7 +21,9 @@ class Comment extends AppModel
     {
         $comments = array();
         $db = DB::conn();
-        $rows = $db->rows("SELECT * FROM comment WHERE thread_id = ? LIMIT {$offset}, {$limit}", array($thread_id)); //tried to use placeholder here, but it resulted to an error "PDO Exception"
+        $sql = sprintf("SELECT * FROM comment WHERE thread_id = %d LIMIT %d, %d", $thread_id, $offset, $limit);
+        $rows = $db->rows($sql);
+
         foreach ($rows as $row) {                    
             $comments[] = new self($row);
         }
@@ -50,7 +52,7 @@ class Comment extends AppModel
     public static function countAll($thread_id)
     {
         $db = DB::conn();
-        return $db->value("SELECT COUNT(*) FROM comment WHERE thread_id = ? ", array($thread_id));
+        return $db->value("SELECT COUNT(*) FROM comment WHERE thread_id = ?", array($thread_id));
     }  
 
     public static function getTopFive()
@@ -61,5 +63,27 @@ class Comment extends AppModel
         return $rows;
     } 
 
+    public static function getComments($thread_id)
+    {
+        $comments = array();
+        $db = DB::conn();
+        $rows = $db->rows('SELECT * FROM comment WHERE thread_id = ? ORDER BY created', array($thread_id));
+
+        foreach ($rows as $row) {                        
+            $comments[] = new Comment($row);
+        }
+        return $comments;
+    }
+
+    public static function deleteCommentsByThreadId($thread_id)
+    {
+        $db = DB::conn();
+        try {
+            $db->query("DELETE from comment WHERE thread_id = ?", array($thread_id));
+        }
+        catch (Exception $e) {
+            throw $e;
+        }
+    }
 }
 ?>
